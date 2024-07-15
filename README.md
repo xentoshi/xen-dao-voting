@@ -20,24 +20,38 @@ Xen DAO Voting is a decentralized autonomous organization (DAO) voting system bu
 ## Installation
 
 1. Clone the repository:
-`git clone https://github.com/yourusername/xen-dao-voting.git`
+```
+git clone https://github.com/yourusername/xen-dao-voting.git
+```
 
-`cd xen-dao-voting`
+```
+cd xen-dao-voting
+```
 
 2. Install dependencies:
-`npm install`
+```
+npm install
+```
 
 3. Build the program:
-`anchor build`
+```
+anchor build
+```
 
-4. Start a local Solana cluster:
-`solana-test-validator`
+5. Start a local Solana cluster:
+```
+solana-test-validator
+```
 
-5. Deploy the program:
-`anchor deploy`
+7. Deploy the program:
+```
+anchor deploy
+```
 
-6. Run the tests:
-`anchor test`
+9. Run the tests:
+```
+anchor test
+```
 
 ## Structure
 
