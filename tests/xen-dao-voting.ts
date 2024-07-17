@@ -32,7 +32,7 @@ describe("xen-dao-voting", () => {
           systemProgram: anchor.web3.SystemProgram.programId,
         })
         .rpc();
-  
+
       const daoAccount = await program.account.dao.fetch(daoPda);
       expect(daoAccount.name).to.equal("Test DAO");
       expect(daoAccount.authority.toBase58()).to.equal(provider.wallet.publicKey.toBase58());

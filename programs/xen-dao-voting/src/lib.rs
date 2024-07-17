@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Bms9RrHVikZ9PUAohfShePSKYPHeoDV5N7YdE66HN17x");
+declare_id!("7XcNV2hAtWFBb6y4YfSngsDyCLGes8LbFeVhUJNrxGt7");
 
 #[program]
 pub mod xen_dao_voting {
@@ -38,19 +38,19 @@ pub mod xen_dao_voting {
         let dao = &mut ctx.accounts.dao;
         let proposal = &mut ctx.accounts.proposal;
         let user = &ctx.accounts.user;
-
+    
         require!(proposal.is_active, ErrorCode::ProposalNotActive);
         require!(!proposal.voters.contains(&user.key()), ErrorCode::AlreadyVoted);
-
+    
         if vote {
             proposal.yes_votes += 1;
         } else {
             proposal.no_votes += 1;
         }
-
+    
         proposal.voters.push(user.key());
         dao.total_points += 1;
-
+    
         Ok(())
     }
 
@@ -65,7 +65,7 @@ pub mod xen_dao_voting {
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(
-        init,
+        init_if_needed,
         payer = user,
         space = 8 + 4 + 32 + 1 + 8 + 32,
         seeds = [b"dao"],
@@ -92,6 +92,9 @@ pub struct CreateProposal<'info> {
     #[account(mut)]
     pub user: Signer<'info>,
     pub system_program: Program<'info, System>,
+    /// CHECK: This is not dangerous because we don't read or write from this account
+    #[account(constraint = authority.key() == user.key() @ ErrorCode::Unauthorized)]
+    pub authority: UncheckedAccount<'info>,
 }
 
 #[derive(Accounts)]
